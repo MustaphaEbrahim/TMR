@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_id"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+
+            android:padding="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/answer"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+
+            <EditText
+                android:id="@+id/answerTitle"
+                android:layout_below="@id/title"
+                android:layout_width="match_parent"
+                android:hint="@string/answer_title"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/answerDate"
+                android:layout_below="@id/answerTitle"
+                android:layout_width="match_parent"
+                android:hint="@string/answer_date"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/answerNumber"
+                android:inputType="number"
+                android:layout_below="@id/answerDate"
+                android:layout_width="match_parent"
+                android:hint="@string/Answer_Number"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/importSide"
+                android:layout_below="@id/answerNumber"
+                android:layout_width="match_parent"
+                android:hint="@string/import_side"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/exportSide"
+                android:layout_below="@id/importSide"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:hint="@string/export_side"
+                android:layout_height="wrap_content" />
+
+
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_below="@id/exportSide"
+                android:layout_marginEnd="5dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/save_button"
+                android:layout_width="match_parent"
+                android:textColor="@android:color/white"
+                android:background="@color/colorAccent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

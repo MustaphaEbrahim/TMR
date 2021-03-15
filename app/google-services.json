@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "569051067672",
+    "firebase_url": "https://cell-monitor21.firebaseio.com",
+    "project_id": "cell-monitor21",
+    "storage_bucket": "cell-monitor21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569051067672:android:eb4f69e950e03e06",
+        "android_client_info": {
+          "package_name": "com.tefa.mustapha.cell_monitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569051067672-nrttalpqaokk4815vpbb6krss2tp6rdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tefa.mustapha.cell_monitor",
+            "certificate_hash": "b006afcb209469a34ef9868dc9df941273804acf"
+          }
+        },
+        {
+          "client_id": "569051067672-te1seve2tl9im8d0p9cjik6tklivsvhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoc0zsBvsPhlfmfOeR6vx0q505u3l6YWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569051067672-te1seve2tl9im8d0p9cjik6tklivsvhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569051067672:android:f3ed243f25b1e4613d9a6d",
+        "android_client_info": {
+          "package_name": "com.tefa.tamer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569051067672-te1seve2tl9im8d0p9cjik6tklivsvhd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoc0zsBvsPhlfmfOeR6vx0q505u3l6YWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569051067672-te1seve2tl9im8d0p9cjik6tklivsvhd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
