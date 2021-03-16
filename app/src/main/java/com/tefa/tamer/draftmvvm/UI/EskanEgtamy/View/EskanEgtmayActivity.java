@@ -96,7 +96,7 @@ public class EskanEgtmayActivity extends BaseActivity {
 
     private void initRecyclerView() {
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(context));
-        adapterEskanEgtmay = new AdapterEskanEgtmay(vIewModel.getEskanEgtamyList());
+        adapterEskanEgtmay = new AdapterEskanEgtmay(context,vIewModel.getEskanEgtamyList());
         binding.recyclerview.setAdapter(adapterEskanEgtmay);
     }
 

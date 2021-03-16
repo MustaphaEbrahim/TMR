@@ -1,6 +1,8 @@
 package com.tefa.tamer.draftmvvm.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tefa.tamer.databinding.EskanegtamyRowBinding;
-import com.tefa.tamer.draftmvvm.Repository.DataProviders.UserDataProvider;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtamy;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtmayActivity;
 import com.tefa.tamer.draftmvvm.Utilities.RecyclerViewHolders;
 
 import java.util.List;
 
 public class AdapterEskanEgtmay extends RecyclerView.Adapter<RecyclerViewHolders.EskanEgtamyViewHolder> {
 
+    private final Context context;
     private List<EskanEgtamy> eskanEgtamyList;
 
-    public AdapterEskanEgtmay(List<EskanEgtamy> eskanEgtamyList){
+    public AdapterEskanEgtmay(Context context ,List<EskanEgtamy> eskanEgtamyList){
         this.eskanEgtamyList = eskanEgtamyList;
+        this.context = context;
     }
 
     @NonNull
@@ -50,7 +52,9 @@ public class AdapterEskanEgtmay extends RecyclerView.Adapter<RecyclerViewHolders
         holder.pdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EskanEgtmayActivity eskanEgtmayActivity = new EskanEgtmayActivity();
+
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(eskanEgtamyList.get(holder.getAdapterPosition()).getPdfUri()));
+                context.startActivity(browserIntent);
 
             }
         });

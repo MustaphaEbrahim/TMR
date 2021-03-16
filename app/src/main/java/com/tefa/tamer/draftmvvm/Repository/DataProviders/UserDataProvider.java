@@ -1,6 +1,7 @@
 package com.tefa.tamer.draftmvvm.Repository.DataProviders;
 
 
+import android.app.DownloadManager;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResp
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtamy;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +47,7 @@ public class UserDataProvider extends BaseDataProvider {
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private CollectionReference userCollectionReference = db.collection("Users");
     private CollectionReference eskanegtmayCollectionReference = db.collection("EskanEgtamy");
+    private StorageReference pdfStorage = FirebaseStorage.getInstance().getReference("egtmay_pdf");
 
 
 
@@ -127,6 +130,9 @@ public class UserDataProvider extends BaseDataProvider {
         });
     }
 
+    public void  retrievePDF (User user , Uri pdfUri, OnDataProviderResponseListener<List<EskanEgtamy>> pDFOnDataProviderResponseListener){
+    }
+
     public void getEskanList(User user, OnDataProviderResponseListener<List<EskanEgtamy>> userOnDataProviderResponseListener){
         List<EskanEgtamy> eskanEgtamies = new ArrayList<>();
 
@@ -154,7 +160,8 @@ public class UserDataProvider extends BaseDataProvider {
 
         final StorageReference filepath = storageReference
                 .child("egtmay_pdf")
-                .child("my_pdf_" + Timestamp.now().getSeconds());
+                .child("my_pdf_" + answerNumber + Timestamp.now().getSeconds());
+
 
         filepath.putFile(pdfUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
