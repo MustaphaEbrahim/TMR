@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
+import com.tefa.tamer.draftmvvm.Repository.DataProviders.eskanEgtma3y.EskanEgtma3yDataProvider;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseViewModel;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
@@ -15,6 +16,8 @@ import java.util.List;
 
 public class DarMsrViewModel extends BaseViewModel {
 
+
+    private final EskanEgtma3yDataProvider eskanEgtma3yDataProvider;
 
     private User currentUser;
 
@@ -30,13 +33,15 @@ public class DarMsrViewModel extends BaseViewModel {
     private MutableLiveData<List<modelGawab>> gawabResultMLD = new MutableLiveData<>();
 
 
-    public DarMsrViewModel(@NonNull Application application) {
+    public DarMsrViewModel(@NonNull Application application, EskanEgtma3yDataProvider eskanEgtma3yDataProvider, EskanEgtma3yDataProvider eskanEgtma3yDataProvider1) {
         super(application);
+        this.eskanEgtma3yDataProvider = eskanEgtma3yDataProvider1;
+
     }
 
 
     public void getUser(){
-        getUserDataProvider().getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
+        eskanEgtma3yDataProvider.getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
             @Override
             public void onSuccess(User user) {
 

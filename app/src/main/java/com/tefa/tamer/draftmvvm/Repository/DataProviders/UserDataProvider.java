@@ -2,6 +2,7 @@ package com.tefa.tamer.draftmvvm.Repository.DataProviders;
 
 
 import android.net.Uri;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,17 +38,14 @@ import java.util.List;
 public class UserDataProvider extends BaseDataProvider {
     public static UserDataProvider sharedInstance = new UserDataProvider();
 
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
     private FirebaseAuth.AuthStateListener authStateListener;
-    private FirebaseUser currentUser;
-    private FirebaseUser user;
+
 
     //fireStore connection
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    private CollectionReference userCollectionReference = db.collection("Users");
-    private CollectionReference eskanegtmayCollectionReference = db.collection("EskanEgtamy");
-    private StorageReference pdfStorage = FirebaseStorage.getInstance().getReference("egtmay_pdf");
+
+    private CollectionReference darMasrCollectionReference = db.collection("DaarMasr");
+
 
 
     public void loginEmailPasswordUser(String email, String password, OnDataProviderResponseListener<com.tefa.tamer.draftmvvm.UI.Main.View.User> booleanOnDataProviderResponseListener) {
@@ -128,21 +126,18 @@ public class UserDataProvider extends BaseDataProvider {
         });
     }
 
-    public void retrievePDF(User user, Uri pdfUri, OnDataProviderResponseListener<List<modelGawab>> pDFOnDataProviderResponseListener) {
-    }
+    //darmasr get list of darmasr
+     public void getDarMasrList (User user, OnDataProviderResponseListener<List<modelGawab>> userOnDataProviderResponseListener){
+        List<modelGawab> darMasrList = new ArrayList<>();
 
-    public void getEskanList(User user, OnDataProviderResponseListener<List<modelGawab>> userOnDataProviderResponseListener) {
-        List<modelGawab> eskanEgtamies = new ArrayList<>();
-
-        eskanegtmayCollectionReference.whereEqualTo("userId", user.getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        darMasrCollectionReference.whereEqualTo("userId", user.getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (QueryDocumentSnapshot eskanEgtamii : queryDocumentSnapshots) {
-                        modelGawab modelGawab = eskanEgtamii.toObject(modelGawab.class);
-                        eskanEgtamies.add(modelGawab);
+                if (!queryDocumentSnapshots.isEmpty()){
+                    for (QueryDocumentSnapshot darMasrii : queryDocumentSnapshots){
+                        modelGawab modelGawab = darMasrii.toObject(modelGawab.class);
+                        darMasrList.add(modelGawab);
                     }
-                    userOnDataProviderResponseListener.onSuccess(eskanEgtamies);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -153,88 +148,19 @@ public class UserDataProvider extends BaseDataProvider {
         });
     }
 
+    //eskan egtmay get list of eskan egtmay
 
-    public void saveEskanEgtmay(String answerTitle, String answerDate, String answerNumber, Uri pdfUri, String importSide, String exportSide, User user, OnDataProviderResponseListener<modelGawab> booleanOnDataProviderResponseListener) {
-
+    public void saveDarMasr (String answerTitle, String answerDate, String answerNumber, Uri pdfUri, String importSide, String exportSide, User user, OnDataProviderResponseListener<modelGawab> booleanOnDataProviderResponseListener){
         final StorageReference filepath = storageReference
-                .child("egtmay_pdf")
-                .child("my_pdf_" + answerNumber + Timestamp.now().getSeconds());
+                .child("darmasr_pdf")
+                .child("my_pdf_" + answerNumber + Timestamp.now().getNanoseconds());
 
-
-        filepath.putFile(pdfUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String currentName = user.getUserName();
-                                String currentUserId = user.getUserId();
-                                String pdfuri = uri.toString();
-                                //create a eskanegtmay Object - model
-                                modelGawab modelGawab = new modelGawab();
-                                modelGawab.setTitle(answerTitle);
-                                modelGawab.setDate(answerDate);
-                                modelGawab.setNumber(answerNumber);
-                                modelGawab.setImportSide(importSide);
-                                modelGawab.setExportSide(exportSide);
-                                modelGawab.setPdfUri(pdfuri);
-                                modelGawab.setTimeAdded(new Timestamp(new Date()));
-                                modelGawab.setUserName(currentName);
-                                modelGawab.setUserId(currentUserId);
-
-                                //invoke our collectionReference
-                                eskanegtmayCollectionReference.add(modelGawab)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-
-                                                booleanOnDataProviderResponseListener.onSuccess(modelGawab);
-
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        booleanOnDataProviderResponseListener.onError(e.getLocalizedMessage());
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                booleanOnDataProviderResponseListener.onError(e.getLocalizedMessage());
-            }
-        });
-
+        filepath.putFile(pdfUri);
     }
 
-    public void getPostUserEskanegtamy(OnDataProviderResponseListener<User> userOnDataProviderResponseListener) {
-        firebaseAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user != null) {
 
 
-                    userCollectionReference.document(user.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                            if (value != null) {
-                                User user = value.toObject(User.class);
 
-                                if (user != null) {
-                                    userOnDataProviderResponseListener.onSuccess(user);
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
 
     public void getUser(OnDataProviderResponseListener<User> userOnDataProviderResponseListener) {
 
@@ -256,22 +182,5 @@ public class UserDataProvider extends BaseDataProvider {
 
     }
 
-    public void searchGawab(String searchKey, OnDataProviderResponseListener<List<modelGawab>> listOnDataProviderResponseListener) {
-
-        eskanegtmayCollectionReference.whereEqualTo("number", searchKey).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                if (task.isSuccessful()) {
-                    listOnDataProviderResponseListener.onSuccess(task.getResult().toObjects(modelGawab.class));
-                } else {
-                    // TODO handle if no result
-                }
-
-            }
-        });
-
-
-    }
 }
 

@@ -7,11 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
+import com.tefa.tamer.draftmvvm.Repository.DataProviders.eskanEgtma3y.EskanEgtma3yDataProvider;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseViewModel;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
 public class PostDataViewModel extends BaseViewModel {
+
+    private final EskanEgtma3yDataProvider eskanEgtma3yDataProvider;
 
     private MutableLiveData<Boolean> isloadingMLD = new MutableLiveData<>();
     private MutableLiveData<modelGawab> isSuccessMLD = new MutableLiveData<>();
@@ -20,15 +23,16 @@ public class PostDataViewModel extends BaseViewModel {
     private User currentUser;
 
 
-    public PostDataViewModel(@NonNull Application application) {
+    public PostDataViewModel(@NonNull Application application, EskanEgtma3yDataProvider eskanEgtma3yDataProvider) {
         super(application);
+        this.eskanEgtma3yDataProvider = eskanEgtma3yDataProvider;
     }
 
     public void saveEskanEgtmay(String answerTittle , String answerDate, String answerNumber , Uri pdfUri, String importSide , String exportSide){
         isloadingMLD.setValue(true);
 
         if (currentUser != null){
-            getUserDataProvider().saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<modelGawab>(){
+            eskanEgtma3yDataProvider.saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<modelGawab>(){
 
                 @Override
                 public void onSuccess(modelGawab response) {
@@ -58,7 +62,7 @@ public class PostDataViewModel extends BaseViewModel {
     }
 
     public void getUserEskan() {
-        getUserDataProvider().getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
+        eskanEgtma3yDataProvider.getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
             @Override
             public void onSuccess(User user) {
                 currentUser = user;

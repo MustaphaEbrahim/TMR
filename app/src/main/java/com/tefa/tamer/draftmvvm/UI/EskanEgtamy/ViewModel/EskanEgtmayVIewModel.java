@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
+import com.tefa.tamer.draftmvvm.Repository.DataProviders.eskanEgtma3y.EskanEgtma3yDataProvider;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseViewModel;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EskanEgtmayVIewModel extends BaseViewModel {
+
+
+    private final EskanEgtma3yDataProvider eskanEgtma3yDataProvider;
 
 
     private User currentUser;
@@ -33,6 +37,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
     public EskanEgtmayVIewModel(@NonNull Application application) {
         super(application);
+        eskanEgtma3yDataProvider = new EskanEgtma3yDataProvider();
     }
 
     public void signOut(){
@@ -50,7 +55,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
     }
 
     public void getUser(){
-        getUserDataProvider().getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
+        eskanEgtma3yDataProvider.getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
             @Override
             public void onSuccess(User user) {
 
@@ -77,7 +82,8 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
         isloadingMLD.setValue(true);
 
         if (currentUser != null){
-            getUserDataProvider().saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<modelGawab>(){
+
+            eskanEgtma3yDataProvider.saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<modelGawab>(){
 
                 @Override
                 public void onSuccess(modelGawab response) {
@@ -101,7 +107,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
         if (user != null) {
 
 
-            getUserDataProvider().getEskanList(user, new OnDataProviderResponseListener<List<modelGawab>>() {
+            eskanEgtma3yDataProvider.getEskanList(user, new OnDataProviderResponseListener<List<modelGawab>>() {
                 @Override
                 public void onSuccess(List<modelGawab> response) {
                    currentUser = user;
@@ -134,7 +140,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
     public void searchGawab(String searchKey) {
 
 
-        getUserDataProvider().searchGawab(searchKey, new OnDataProviderResponseListener<List<modelGawab>>() {
+        eskanEgtma3yDataProvider.searchGawab(searchKey, new OnDataProviderResponseListener<List<modelGawab>>() {
             @Override
             public void onSuccess(List<modelGawab> response) {
                 gawabResultMLD.setValue(response);
