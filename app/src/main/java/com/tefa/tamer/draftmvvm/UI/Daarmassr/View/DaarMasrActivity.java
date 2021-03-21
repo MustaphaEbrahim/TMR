@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.ActivityDaarMasrBinding;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
-import com.tefa.tamer.draftmvvm.UI.Daarmassr.ViewModel.DarMasrViewModel;
+import com.tefa.tamer.draftmvvm.UI.Daarmassr.ViewModel.DarMsrViewModel;
+
 
 public class DaarMasrActivity extends BaseActivity {
 
     private ActivityDaarMasrBinding binding;
-    private DarMasrViewModel viewModel;
+    private DarMsrViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class DaarMasrActivity extends BaseActivity {
 
     @Override
     public void initViewModel() {
-        viewModel = new ViewModelProvider(this).get(DarMasrViewModel.class);
+        viewModel = new ViewModelProvider(this).get(DarMsrViewModel.class);
         setViewModel(viewModel);
     }
 

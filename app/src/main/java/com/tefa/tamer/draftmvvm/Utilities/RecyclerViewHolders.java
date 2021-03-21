@@ -1,15 +1,10 @@
 package com.tefa.tamer.draftmvvm.Utilities;
 
-import android.view.View;
-import android.widget.EditText;
+
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.tefa.tamer.databinding.ModelgwabRowBinding;
 
-import com.tefa.tamer.databinding.EskanegtamyRowBinding;
-
-import java.net.URI;
 
 /**
  * Created by Youssif Hamdy on 12/8/2019.
@@ -31,7 +26,7 @@ public class RecyclerViewHolders {
         }
     }*/
 
-    public static class EskanEgtamyViewHolder extends RecyclerView.ViewHolder {
+    public static class ModelGwabViewHodel extends RecyclerView.ViewHolder {
         public TextView
                 answerTitle,
                 answerDate ,
@@ -44,7 +39,7 @@ public class RecyclerViewHolders {
 
 
 
-        public EskanEgtamyViewHolder(EskanegtamyRowBinding itmBinding ) {
+        public ModelGwabViewHodel (ModelgwabRowBinding itmBinding ) {
             super(itmBinding.getRoot());
 
             answerTitle = itmBinding.titleAnswer;

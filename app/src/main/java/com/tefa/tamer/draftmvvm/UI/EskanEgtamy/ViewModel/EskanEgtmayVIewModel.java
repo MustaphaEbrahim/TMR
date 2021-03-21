@@ -1,13 +1,14 @@
 package com.tefa.tamer.draftmvvm.UI.EskanEgtamy.ViewModel;
 
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseViewModel;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtamy;
+import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
 import java.util.ArrayList;
@@ -15,11 +16,20 @@ import java.util.List;
 
 public class EskanEgtmayVIewModel extends BaseViewModel {
 
+
+    private User currentUser;
+
+
+    private MutableLiveData<Boolean> isloadingMLD = new MutableLiveData<>();
     private MutableLiveData<Boolean> isSuccessMLD = new MutableLiveData<>();
+    private MutableLiveData<modelGawab> isSuccesslMLD = new MutableLiveData<>();
     private MutableLiveData<String> isErrorMLD = new MutableLiveData<>();
     private MutableLiveData<User> userAlreadyExistMLD = new MutableLiveData<>();
-    private List<EskanEgtamy> eskanEgtamyList = new ArrayList<>();
+    private List<modelGawab> modelGawabList = new ArrayList<>();
     private MutableLiveData<Boolean> isEskanEgtmayReady = new MutableLiveData<>();
+    private MutableLiveData<List<modelGawab>> gawabResultMLD = new MutableLiveData<>();
+
+
 
     public EskanEgtmayVIewModel(@NonNull Application application) {
         super(application);
@@ -40,10 +50,12 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
     }
 
     public void getUser(){
-        getUserDataProvider().getUser(new OnDataProviderResponseListener<User>() {
+        getUserDataProvider().getPostUserEskanegtamy(new OnDataProviderResponseListener<User>() {
             @Override
-            public void onSuccess(User response) {
-                userAlreadyExistMLD.setValue(response);
+            public void onSuccess(User user) {
+
+                currentUser = user;
+                userAlreadyExistMLD.setValue(user);
             }
 
             @Override
@@ -60,16 +72,72 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
     }
 
 
-    public void getUserEskan(User user){
+    ///////////////////////////////////////////////////
+    public void saveEskanEgtmay(String answerTittle , String answerDate, String answerNumber , Uri pdfUri, String importSide , String exportSide){
+        isloadingMLD.setValue(true);
+
+        if (currentUser != null){
+            getUserDataProvider().saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<modelGawab>(){
+
+                @Override
+                public void onSuccess(modelGawab response) {
+                    isloadingMLD.setValue(false);
+                    isSuccesslMLD.setValue(response);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                    isloadingMLD.setValue(false);
+                    isErrorMLD.setValue(errorMsg);
+                }
+            });
+        }
+    }
+    ///////////////////////////////////////////////////
 
 
-        getUserDataProvider().getEskanList(user, new OnDataProviderResponseListener<List<EskanEgtamy>>() {
+    public void getUserEskan(){
+
+        if (user != null) {
+
+
+            getUserDataProvider().getEskanList(user, new OnDataProviderResponseListener<List<modelGawab>>() {
+                @Override
+                public void onSuccess(List<modelGawab> response) {
+                   currentUser = user;
+                    modelGawabList.clear();
+                    modelGawabList.addAll(response);
+                    isEskanEgtmayReady.setValue(true);
+
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+    }
+
+    public MutableLiveData<modelGawab> getIsSuccesslMLD() {
+        return isSuccesslMLD;
+    }
+
+    public MutableLiveData<Boolean> getIsloadingMLD() { return isloadingMLD; }
+    public MutableLiveData<List<modelGawab>> getGawabResultMLD() {
+        return gawabResultMLD;
+    }
+    public MutableLiveData<Boolean> getIsEskanEgtmayReady() {return isEskanEgtmayReady;}
+    public List<modelGawab> getModelGawabList(){ return modelGawabList;}
+    public void setModelGawabList(List<modelGawab> modelGawabList){this.modelGawabList = modelGawabList;}
+
+    public void searchGawab(String searchKey) {
+
+
+        getUserDataProvider().searchGawab(searchKey, new OnDataProviderResponseListener<List<modelGawab>>() {
             @Override
-            public void onSuccess(List<EskanEgtamy> response) {
-                eskanEgtamyList.clear();
-                eskanEgtamyList.addAll(response);
-                isEskanEgtmayReady.setValue(true);
-
+            public void onSuccess(List<modelGawab> response) {
+                gawabResultMLD.setValue(response);
             }
 
             @Override
@@ -77,9 +145,12 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
             }
         });
+
+
+
     }
-    public MutableLiveData<Boolean> getIsEskanEgtmayReady() {return isEskanEgtmayReady;}
-    public List<EskanEgtamy> getEskanEgtamyList(){ return eskanEgtamyList;}
-    public void setEskanEgtamyList(List<EskanEgtamy> eskanEgtamyList){this.eskanEgtamyList = eskanEgtamyList;}
+
+
+
 
 }

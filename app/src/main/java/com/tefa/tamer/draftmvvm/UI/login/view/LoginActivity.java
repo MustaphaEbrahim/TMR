@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
 import com.tefa.tamer.draftmvvm.UI.Choose.View.ChooseActivity;
+import com.tefa.tamer.draftmvvm.UI.Choose.View.TestActivity;
 import com.tefa.tamer.draftmvvm.UI.CreateAccount.View.CreateActivity;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 import com.tefa.tamer.draftmvvm.UI.login.ViewModel.LoginViewModel;
@@ -64,7 +65,7 @@ public class LoginActivity extends BaseActivity {
 
     private void startPostActivity(com.tefa.tamer.draftmvvm.UI.Main.View.User user) {
 
-        Intent intent = new Intent(LoginActivity.this , ChooseActivity.class);
+        Intent intent = new Intent(LoginActivity.this , TestActivity.class);
         intent.putExtra("username", user.getUserName());
         intent.putExtra("userId", user.getUserId());
         startActivity(intent);

@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tamer">
+        <activity android:name=".draftmvvm.UI.Choose.View.TestActivity"/>
         <activity android:name=".draftmvvm.UI.PostData.View.PostEskanEgtmay"></activity>
         <activity android:name=".draftmvvm.UI.EskanGana.View.EskanGanaActivity" />
         <activity android:name=".draftmvvm.UI.Daarmassr.View.DaarMasrActivity" />

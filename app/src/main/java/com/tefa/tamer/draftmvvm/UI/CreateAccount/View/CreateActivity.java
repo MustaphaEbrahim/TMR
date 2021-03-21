@@ -15,6 +15,7 @@ import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.ActivityCreateBinding;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
 import com.tefa.tamer.draftmvvm.UI.Choose.View.ChooseActivity;
+import com.tefa.tamer.draftmvvm.UI.Choose.View.TestActivity;
 import com.tefa.tamer.draftmvvm.UI.CreateAccount.ViewModel.CreateViewModel;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
@@ -77,7 +78,7 @@ public class CreateActivity extends BaseActivity {
 
     private void startPostActivity(User user) {
 
-        Intent intent = new Intent(CreateActivity.this , ChooseActivity.class);
+        Intent intent = new Intent(CreateActivity.this , TestActivity.class);
         intent.putExtra("username", user.getUserName());
         intent.putExtra("userId" , user.getUserId());
         startActivity(intent);

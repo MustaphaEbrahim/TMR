@@ -36,6 +36,8 @@
     <string name="yourPdf">pdf</string>
     <string name="choose_your_selcet_pdf">select Your PDF</string>
     <string name="date_created">Time</string>
+    <string name="enter_number">Enter Number</string>
+    <string name="add_another_answer">add another answer</string>
 
 
 </resources>

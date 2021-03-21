@@ -8,13 +8,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseViewModel;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtamy;
+import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
 public class PostDataViewModel extends BaseViewModel {
 
     private MutableLiveData<Boolean> isloadingMLD = new MutableLiveData<>();
-    private MutableLiveData<EskanEgtamy> isSuccessMLD = new MutableLiveData<>();
+    private MutableLiveData<modelGawab> isSuccessMLD = new MutableLiveData<>();
     private MutableLiveData<String> isErrorMLD = new MutableLiveData<>();
     private MutableLiveData<User> userAlreadyExistMLD = new MutableLiveData<>();
     private User currentUser;
@@ -28,10 +28,10 @@ public class PostDataViewModel extends BaseViewModel {
         isloadingMLD.setValue(true);
 
         if (currentUser != null){
-            getUserDataProvider().saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<EskanEgtamy>(){
+            getUserDataProvider().saveEskanEgtmay(answerTittle ,answerDate ,answerNumber ,pdfUri, importSide ,exportSide  ,currentUser ,new OnDataProviderResponseListener<modelGawab>(){
 
                 @Override
-                public void onSuccess(EskanEgtamy response) {
+                public void onSuccess(modelGawab response) {
                     isloadingMLD.setValue(false);
                     isSuccessMLD.setValue(response);
                 }
@@ -49,7 +49,7 @@ public class PostDataViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> getIsloadingMLD(){ return isloadingMLD; }
 
-    public MutableLiveData<EskanEgtamy> getIsSuccessMLD() { return isSuccessMLD; }
+    public MutableLiveData<modelGawab> getIsSuccessMLD() { return isSuccessMLD; }
 
     public MutableLiveData<String> getIsErrorMLD() {return isErrorMLD; }
 

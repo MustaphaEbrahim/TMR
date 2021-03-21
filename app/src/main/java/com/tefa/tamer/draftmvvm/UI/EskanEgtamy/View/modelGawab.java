@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp;
 
 import java.net.URI;
 
-public class EskanEgtamy {
+public class modelGawab {
     private String title;
     private String date;
     private String pdfUri;
@@ -20,10 +20,10 @@ public class EskanEgtamy {
 
 
 
-    public EskanEgtamy() {
+    public modelGawab() {
     }
 
-    public EskanEgtamy(String title, String date, String pdfUri, String number, String importSide, String exportSide, String userName, String userId, Timestamp timeAdded) {
+    public modelGawab(String title, String date, String pdfUri, String number, String importSide, String exportSide, String userName, String userId, Timestamp timeAdded) {
         this.title = title;
         this.date = date;
         this.pdfUri = pdfUri;

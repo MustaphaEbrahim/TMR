@@ -18,6 +18,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <!-- <item name="android:fontFamily">@font/cairo_semibold</item>-->
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="toolbar_theme" parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/colorWhite</item>
         <item name="colorControlNormal">@color/colorWhite</item>

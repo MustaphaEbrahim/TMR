@@ -1,11 +1,9 @@
 package com.tefa.tamer.draftmvvm.UI.PostData.View;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +13,8 @@ import android.widget.Toast;
 
 import com.tefa.tamer.databinding.ActivityPostEskanEgtmayBinding;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtamy;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtmayActivity;
+import com.tefa.tamer.draftmvvm.UI.Choose.View.TestActivity;
+import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.PostData.ViewModel.PostDataViewModel;
 
 public class PostEskanEgtmay extends BaseActivity {
@@ -96,16 +94,16 @@ public class PostEskanEgtmay extends BaseActivity {
 
     @Override
     public void initObservers() {
-        viewModel.getIsSuccessMLD().observe(this, new Observer<EskanEgtamy>() {
+        viewModel.getIsSuccessMLD().observe(this, new Observer<modelGawab>() {
             @Override
-            public void onChanged(EskanEgtamy eskanEgtamy) {
+            public void onChanged(modelGawab modelGawab) {
               saveEgtmay();
             }
         });
     }
 
     private void saveEgtmay() {
-        Intent intent = new Intent(PostEskanEgtmay.this, EskanEgtmayActivity.class);
+        Intent intent = new Intent(PostEskanEgtmay.this, TestActivity.class);
         startActivity(intent);
         finish();
     }

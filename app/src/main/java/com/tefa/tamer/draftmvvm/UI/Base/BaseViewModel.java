@@ -8,12 +8,15 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.UserDataProvider;
+import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 import com.tefa.tamer.draftmvvm.Utilities.SharedPreferenceHelper;
 
 import java.util.Locale;
 
 public abstract class BaseViewModel extends AndroidViewModel {
 
+
+    protected User user;
     private UserDataProvider userDataProvider = UserDataProvider.sharedInstance;
 
     public UserDataProvider getUserDataProvider() {
@@ -34,6 +37,9 @@ public abstract class BaseViewModel extends AndroidViewModel {
 
 
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 
     public MutableLiveData<Boolean> getIsConnectToInternetMutableLiveData() {

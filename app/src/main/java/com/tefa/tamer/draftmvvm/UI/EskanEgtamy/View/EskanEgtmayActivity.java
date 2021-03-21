@@ -1,10 +1,5 @@
 package com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +9,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.ActivityEskanEgtmayBinding;
-import com.tefa.tamer.draftmvvm.Adapters.AdapterEskanEgtmay;
+import com.tefa.tamer.draftmvvm.Adapters.AdapterModelGawab;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
 import com.tefa.tamer.draftmvvm.UI.Choose.View.ChooseActivity;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.ViewModel.EskanEgtmayVIewModel;
@@ -26,7 +25,8 @@ public class EskanEgtmayActivity extends BaseActivity {
 
     private ActivityEskanEgtmayBinding binding;
     private EskanEgtmayVIewModel vIewModel;
-    private AdapterEskanEgtmay adapterEskanEgtmay;
+    private AdapterModelGawab adapterModelGwab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +96,8 @@ public class EskanEgtmayActivity extends BaseActivity {
 
     private void initRecyclerView() {
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(context));
-        adapterEskanEgtmay = new AdapterEskanEgtmay(context,vIewModel.getEskanEgtamyList());
-        binding.recyclerview.setAdapter(adapterEskanEgtmay);
+        adapterModelGwab = new AdapterModelGawab(context,vIewModel.getModelGawabList());
+        binding.recyclerview.setAdapter(adapterModelGwab);
     }
 
     @Override
@@ -117,14 +117,15 @@ public class EskanEgtmayActivity extends BaseActivity {
         vIewModel.getUserAlreadyExistMLD().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                vIewModel.getUserEskan(user);
+                vIewModel.setUser(user);
+                vIewModel.getUserEskan();
             }
         });
 
         vIewModel.getIsEskanEgtmayReady().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                adapterEskanEgtmay.notifyDataSetChanged();
+                adapterModelGwab.notifyDataSetChanged();
             }
         });
     }

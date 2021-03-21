@@ -40,7 +40,6 @@
 
             <EditText
                 android:id="@+id/answerNumber"
-                android:inputType="number"
                 android:layout_below="@id/answerDate"
                 android:layout_width="match_parent"
                 android:hint="@string/Answer_Number"
@@ -56,16 +55,24 @@
             <EditText
                 android:id="@+id/exportSide"
                 android:layout_below="@id/importSide"
-                android:inputType="number"
                 android:layout_width="match_parent"
                 android:hint="@string/export_side"
                 android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uriPdf"
+                android:hint="@string/choose_your_selcet_pdf"
+                android:layout_below="@id/exportSide"
+                android:textColorHint="@color/colorAccent"
+                />
 
 
 
             <Button
                 android:id="@+id/saveButton"
-                android:layout_below="@id/exportSide"
+                android:layout_below="@id/uriPdf"
                 android:layout_marginEnd="5dp"
                 android:textSize="14sp"
                 android:textStyle="bold"
