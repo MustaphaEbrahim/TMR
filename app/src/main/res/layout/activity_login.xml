@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
+    android:background="@drawable/care"
     android:padding="16dp"
     tools:context=".draftmvvm.UI.login.view.LoginActivity">
 
@@ -21,21 +22,62 @@
         android:orientation="vertical"
         android:id="@+id/email_login_form">
 
-        <AutoCompleteTextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:id="@+id/email"
-            android:hint="@string/hint_email"/>
-        <EditText
+            android:layout_height="wrap_content">
+
+             <AutoCompleteTextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:inputType="textEmailAddress"
+                 android:maxLines="1"
+                 android:textColorHint="#0F2B7A"
+                 android:imeOptions="actionDone"
+                 android:id="@+id/email"
+                 android:hint="@string/hint_email"/>
+
+            <ImageView
+                android:paddingEnd="30dp"
+                android:paddingStart="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_email"
+                android:contentDescription="@string/hint_email" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:hint="@string/password_hint"
-            android:layout_marginTop="16dp"
-            android:inputType="textPassword"
-            android:maxLines="1"/>
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/password"
+                android:hint="@string/password_hint"
+                android:textColorHint="#0F2B7A"
+                android:layout_marginTop="16dp"
+                android:inputType="textPassword"
+                android:maxLines="1"/>
+
+            <ImageView
+                android:paddingEnd="30dp"
+                android:paddingStart="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_baseline_brightness_1_24"
+                android:contentDescription="@string/hint_email" />
+
+        </RelativeLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +87,7 @@
             android:layout_marginTop="16dp"/>
 
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/or_text"

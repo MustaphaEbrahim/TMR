@@ -18,7 +18,7 @@ import java.util.List;
 public class EskanEgtmayVIewModel extends BaseViewModel {
 
 
-    private final EskanEgtma3yDataProvider eskanEgtma3yDataProvider;
+    private  EskanEgtma3yDataProvider eskanEgtma3yDataProvider;
 
 
     private User currentUser;

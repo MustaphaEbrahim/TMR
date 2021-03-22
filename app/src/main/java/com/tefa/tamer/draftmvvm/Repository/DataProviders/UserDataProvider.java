@@ -126,37 +126,7 @@ public class UserDataProvider extends BaseDataProvider {
         });
     }
 
-    //darmasr get list of darmasr
-     public void getDarMasrList (User user, OnDataProviderResponseListener<List<modelGawab>> userOnDataProviderResponseListener){
-        List<modelGawab> darMasrList = new ArrayList<>();
 
-        darMasrCollectionReference.whereEqualTo("userId", user.getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
-                    for (QueryDocumentSnapshot darMasrii : queryDocumentSnapshots){
-                        modelGawab modelGawab = darMasrii.toObject(modelGawab.class);
-                        darMasrList.add(modelGawab);
-                    }
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-    }
-
-    //eskan egtmay get list of eskan egtmay
-
-    public void saveDarMasr (String answerTitle, String answerDate, String answerNumber, Uri pdfUri, String importSide, String exportSide, User user, OnDataProviderResponseListener<modelGawab> booleanOnDataProviderResponseListener){
-        final StorageReference filepath = storageReference
-                .child("darmasr_pdf")
-                .child("my_pdf_" + answerNumber + Timestamp.now().getNanoseconds());
-
-        filepath.putFile(pdfUri);
-    }
 
 
 

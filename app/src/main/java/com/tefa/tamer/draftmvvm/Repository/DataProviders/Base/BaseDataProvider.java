@@ -27,6 +27,7 @@ public abstract class BaseDataProvider {
     protected FirebaseFirestore db = FirebaseFirestore.getInstance();
     protected CollectionReference userCollectionReference = db.collection("Users");
     protected CollectionReference eskanegtmayCollectionReference = db.collection("EskanEgtamy");
+    protected CollectionReference darMasrCollectionReference = db.collection("DaarMasr");
     protected Context context;
     protected Executor executor = Executors.newSingleThreadExecutor();
 

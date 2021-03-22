@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+
 import com.tefa.tamer.databinding.ModelgwabRowBinding;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.Utilities.RecyclerViewHolders;
@@ -37,19 +38,18 @@ public class AdapterModelGawab extends RecyclerView.Adapter<RecyclerViewHolders.
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolders.ModelGwabViewHodel holder, int position) {
 
-        String pdfUri;
+
 
         holder.answerTitle.setText(modelGawabList.get(position).getTitle());
         holder.answerDate.setText(modelGawabList.get(position).getDate());
         holder.answerNumber.setText(modelGawabList.get(position).getNumber());
         holder.importSide.setText(modelGawabList.get(position).getImportSide());
         holder.exportSide.setText(modelGawabList.get(position).getExportSide());
-        pdfUri = modelGawabList.get(position).getPdfUri();
         String timeAgo = (String) DateUtils.getRelativeTimeSpanString( modelGawabList.get(position)
                 .getTimeAdded()
                 .getSeconds() * 1000);
         holder.dateAdded.setText(timeAgo);
-        holder.pdf.setText(pdfUri);
+        holder.pdf.setText("click_Here_to_download_Pdf");
         holder.pdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
