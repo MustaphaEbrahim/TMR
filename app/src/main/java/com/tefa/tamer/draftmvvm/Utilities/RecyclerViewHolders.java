@@ -1,7 +1,11 @@
 package com.tefa.tamer.draftmvvm.Utilities;
 
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tefa.tamer.databinding.ModelgwabRowBinding;
 
@@ -36,6 +40,9 @@ public class RecyclerViewHolders {
                 pdf,
                 dateAdded;
 
+        public Button editButton ,
+                deleteButton;
+
 
 
 
@@ -49,6 +56,38 @@ public class RecyclerViewHolders {
             importSide = itmBinding.sideImport;
             dateAdded = itmBinding.egtmayTimestampList;
             pdf = itmBinding.pdf;
+            editButton = itmBinding.editButton;
+            deleteButton = itmBinding.deleteButton;
+
+        }
+    }
+
+    public static class EskanGanaViewHolder extends RecyclerView.ViewHolder{
+
+        public TextView
+                answerTitleGana,
+                answerDateGana ,
+                answerNumberGana,
+                exportSideGana,
+                importSideGana,
+                pdfGana,
+                dateAddedGana;
+
+        public Button editButtonGana ,
+                deleteButtonGana;
+
+        public EskanGanaViewHolder(ModelgwabRowBinding itmBinding) {
+            super(itmBinding.getRoot());
+
+            answerTitleGana = itmBinding.titleAnswer;
+            answerDateGana = itmBinding.dateAnswer;
+            answerNumberGana = itmBinding.numberAnswer;
+            exportSideGana = itmBinding.sideExport;
+            importSideGana = itmBinding.sideImport;
+            dateAddedGana = itmBinding.egtmayTimestampList;
+            pdfGana = itmBinding.pdf;
+            editButtonGana = itmBinding.editButton;
+            deleteButtonGana = itmBinding.deleteButton;
 
         }
     }

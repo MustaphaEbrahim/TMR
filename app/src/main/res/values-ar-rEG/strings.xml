@@ -36,4 +36,8 @@
     <string name="date_created">Time</string>
     <string name="enter_number">Enter Number</string>
     <string name="add_another_answer">add another answer</string>
+    <string name="sure_text">yes</string>
+    <string name="no_tcext">no</string>
+    <string name="yes_text">yes</string>
+    <string name="Click_here_to_download_pdf">Click Here To Download PDF!</string>
 </resources>

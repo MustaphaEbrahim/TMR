@@ -65,7 +65,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
             @Override
             public void onError(String errorMsg) {
-
+                isErrorMLD.setValue(errorMsg);
             }
         });
     }
@@ -119,7 +119,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    isErrorMLD.setValue(errorMsg);
                 }
             });
         }
@@ -148,7 +148,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
             @Override
             public void onError(String errorMsg) {
-
+                isErrorMLD.setValue(errorMsg);
             }
         });
 

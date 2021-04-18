@@ -9,7 +9,7 @@
     <string name="english">English</string>
     <string name="arabic">اللغة العربية</string>
     <string name="change_language">Change Language</string>
-    <string name="WelcomeToTamer">Welcome to your DataBase Tamer for mentaince !.</string>
+    <string name="WelcomeToTamer">Welcome back!.</string>
     <string name="get_started">Get started</string>
     <string name="hint_email">email</string>
     <string name="password_hint">Password</string>
@@ -24,10 +24,10 @@
     <string name="signout">Sign out</string>
     <string name="write_a_journal_entry_by_clicking_the_sign">Write a Journal Entry by clicking the sign</string>
     <string name="daarMasr">Daar Maassr</string>
-    <string name="eskanEgtmay">Eskan Egtmay</string>
-    <string name="eskanGana">Eskan Gana</string>
+    <string name="eskanEgtmay" translatable="false">Eskan Egtmay</string>
+    <string name="eskanGana" translatable="false">Eskan Gana</string>
     <string name="answer_title">Answer Title</string>
-    <string name="answer_date">Answer Date</string>
+    <string name="answer_date" translatable="false">Answer Date</string>
     <string name="Answer_Number">Answer Number</string>
     <string name="import_side">Import Side</string>
     <string name="export_side">Export Side</string>
@@ -38,6 +38,10 @@
     <string name="date_created">Time</string>
     <string name="enter_number">Enter Number</string>
     <string name="add_another_answer">add another answer</string>
+    <string name="sure_text">yes</string>
+    <string name="no_tcext">no</string>
+    <string name="yes_text">yes</string>
+    <string name="Click_here_to_download_pdf">Click Here To Download PDF!</string>
 
 
 </resources>

@@ -28,6 +28,7 @@ public abstract class BaseDataProvider {
     protected CollectionReference userCollectionReference = db.collection("Users");
     protected CollectionReference eskanegtmayCollectionReference = db.collection("EskanEgtamy");
     protected CollectionReference darMasrCollectionReference = db.collection("DaarMasr");
+    protected CollectionReference eskanGanaCollectionReference = db.collection("EskanGana");
     protected Context context;
     protected Executor executor = Executors.newSingleThreadExecutor();
 

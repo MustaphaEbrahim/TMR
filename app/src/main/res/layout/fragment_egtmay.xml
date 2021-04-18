@@ -59,14 +59,15 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="0dp" />
 
-   <com.google.android.material.floatingactionbutton.FloatingActionButton
+   <ImageButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
        android:contentDescription="@string/add_another_answer"
         android:layout_below="@+id/cv_search"
        android:layout_centerInParent="true"
-        app:srcCompat="@android:drawable/ic_input_add" />
+       android:background="@drawable/login"
+       app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

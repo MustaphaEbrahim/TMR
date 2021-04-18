@@ -27,6 +27,7 @@
             android:layout_height="wrap_content">
 
              <AutoCompleteTextView
+
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:inputType="textEmailAddress"
@@ -83,6 +84,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/EmailSignInButton"
             android:text="@string/login_text"
+
             style="@style/anything"
             android:layout_marginTop="16dp"/>
 

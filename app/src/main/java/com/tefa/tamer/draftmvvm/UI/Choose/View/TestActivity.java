@@ -30,6 +30,7 @@ import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.EskanEgtmayActivity;
 import com.tefa.tamer.draftmvvm.UI.EskanGana.View.GanaFragment;
 import com.tefa.tamer.draftmvvm.UI.Main.View.MainActivity;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
+import com.tefa.tamer.draftmvvm.Utilities.SharedPreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,9 @@ public class TestActivity extends BaseActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add:
-                Intent intent = new Intent(TestActivity.this, EskanEgtmayActivity.class);
-                startActivity(intent);
+                changeLanguage();
+                /*Intent intent = new Intent(TestActivity.this, EskanEgtmayActivity.class);
+                startActivity(intent);*/
                 break;
             case  R.id.action_signout:
                 viewModel.signOut();
@@ -239,5 +241,7 @@ public class TestActivity extends BaseActivity {
             mFragmentTitleList.add(title);
 
         }
+
     }
+
 }

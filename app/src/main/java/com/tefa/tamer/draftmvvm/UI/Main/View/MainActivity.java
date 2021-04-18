@@ -1,13 +1,11 @@
 package com.tefa.tamer.draftmvvm.UI.Main.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
+
+import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.ActivityMainBinding;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
 import com.tefa.tamer.draftmvvm.UI.Main.ViewModel.MainActivityViewModel;

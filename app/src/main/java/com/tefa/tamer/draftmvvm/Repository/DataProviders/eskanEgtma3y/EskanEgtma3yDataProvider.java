@@ -94,6 +94,7 @@ public class EskanEgtma3yDataProvider extends BaseDataProvider {
                         filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+
                                 String currentName = user.getUserName();
                                 String currentUserId = user.getUserId();
                                 String pdfuri = uri.toString();

@@ -194,8 +194,16 @@ public class DarMasrFragment extends BaseFragment {
     }
 
     private void saveDarMasr() {
-        Intent intent = new Intent(getActivity() , TestActivity.class);
-        startActivity(intent);
+
+        /*Intent intent = new Intent(context.getApplicationContext() , DarMasrFragment.class);
+        startActivity(intent);*/
+
+        binding.progressBar.setVisibility(View.GONE);
+        dialog.dismiss();
+        viewModel.getDarMasrList().clear();
+        adapterModelGawab.notifyDataSetChanged();
+        viewModel.getUserDarMasr();
+
     }
 
     @Override
@@ -263,11 +271,25 @@ public class DarMasrFragment extends BaseFragment {
         if (requestCode == 130 && resultCode == RESULT_OK && data != null && data.getData() != null){
             saveButton.setEnabled(true);
 
+            /*if (saveButton.callOnClick()){
+                viewModel.getIsloadingMLD().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if (aBoolean){
+                            binding.progressBar.setVisibility(View.VISIBLE);
+                        }else {
+                            binding.progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
+            }*/
+
             pdfGwab.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/") + 1));
 
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    binding.progressBar.setVisibility(View.VISIBLE);
                     uploadPDFfileFireBase(data.getData());
                 }
             });

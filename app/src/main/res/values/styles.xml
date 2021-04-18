@@ -38,13 +38,16 @@
     </style>
 
     <style name="anything">
-    <item name="android:textAllCaps">true</item>
-    <item name="android:layout_margin">20dp</item>
-    <item name="android:textColor">@color/black</item>
-    <item name="android:background">@drawable/button_bg</item>
-    <item name="android:gravity">center</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:padding">10dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
 
     </style>
 
