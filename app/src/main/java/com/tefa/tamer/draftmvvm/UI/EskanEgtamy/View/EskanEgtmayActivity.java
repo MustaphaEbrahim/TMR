@@ -16,12 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.ActivityEskanEgtmayBinding;
 import com.tefa.tamer.draftmvvm.Adapters.AdapterModelGawab;
+import com.tefa.tamer.draftmvvm.Adapters.OnGawabClickListener;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseActivity;
 import com.tefa.tamer.draftmvvm.UI.Choose.View.ChooseActivity;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.ViewModel.EskanEgtmayVIewModel;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
-public class EskanEgtmayActivity extends BaseActivity {
+public class EskanEgtmayActivity extends BaseActivity implements OnGawabClickListener {
 
     private ActivityEskanEgtmayBinding binding;
     private EskanEgtmayVIewModel vIewModel;
@@ -96,7 +97,7 @@ public class EskanEgtmayActivity extends BaseActivity {
 
     private void initRecyclerView() {
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(context));
-        adapterModelGwab = new AdapterModelGawab(context,vIewModel.getModelGawabList());
+        adapterModelGwab = new AdapterModelGawab(context,vIewModel.getModelGawabList(), this);
         binding.recyclerview.setAdapter(adapterModelGwab);
     }
 
@@ -142,6 +143,16 @@ public class EskanEgtmayActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+    }
+
+    @Override
+    public void onGawabEditClick(int adapterPosition, modelGawab gawab) {
+
+    }
+
+    @Override
+    public void onGawabDeleteClick(int adapterPosition, modelGawab gawab) {
 
     }
 }

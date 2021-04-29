@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.tefa.tamer.draftmvvm.Repository.DataProviders.UserDataProvider;
+import com.tefa.tamer.draftmvvm.Repository.DataProviders.UserProvider.UserDataProvider;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 import com.tefa.tamer.draftmvvm.Utilities.SharedPreferenceHelper;
 

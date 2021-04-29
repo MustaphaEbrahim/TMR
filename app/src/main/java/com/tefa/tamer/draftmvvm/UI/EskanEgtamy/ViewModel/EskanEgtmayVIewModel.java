@@ -26,6 +26,7 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
     private MutableLiveData<Boolean> isloadingMLD = new MutableLiveData<>();
     private MutableLiveData<Boolean> isSuccessMLD = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEditSuccessMLD = new MutableLiveData<>();
     private MutableLiveData<modelGawab> isSuccesslMLD = new MutableLiveData<>();
     private MutableLiveData<String> isErrorMLD = new MutableLiveData<>();
     private MutableLiveData<User> userAlreadyExistMLD = new MutableLiveData<>();
@@ -39,6 +40,8 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
         super(application);
         eskanEgtma3yDataProvider = new EskanEgtma3yDataProvider();
     }
+
+
 
     public void signOut(){
         getUserDataProvider().signOut(new OnDataProviderResponseListener<Boolean>() {
@@ -125,6 +128,8 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
         }
     }
 
+    public MutableLiveData<Boolean> getIsEditSuccessMLD() {return isEditSuccessMLD;}
+
     public MutableLiveData<modelGawab> getIsSuccesslMLD() {
         return isSuccesslMLD;
     }
@@ -156,7 +161,83 @@ public class EskanEgtmayVIewModel extends BaseViewModel {
 
     }
 
+    public  void updateGawab (String number, String export, String importSide, String tittle){
+        eskanEgtma3yDataProvider.updateGawabModel(export, number, importSide, tittle, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                isEditSuccessMLD.setValue(true);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+    }
+
+    public void delete(String number) {
+        eskanEgtma3yDataProvider.delete(number, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                isEditSuccessMLD.setValue(response);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+
+    }
 
 
 
+    /*public void updateGwab( String exportSidde, String importSide ,String title){
+
+        eskanEgtma3yDataProvider.updateGawabModel(exportSidde, importSide, title, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                isEditSuccessMLD.setValue(true);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+
+    }*/
+
+
+
+  /*  public void updateModelGwab(modelGawab gawab){
+        eskanEgtma3yDataProvider.updateGawabModel(gawab, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+
+                isEditSuccessMLD.postValue(response);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+    }*/
+
+
+
+    /*public void update(Map<String, Object> note) {
+        eskanEgtma3yDataProvider.update(note, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                isEditSuccessMLD.setValue(response);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+    }*/
 }

@@ -1,6 +1,5 @@
 package com.tefa.tamer.draftmvvm.Adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,11 +7,9 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.ModelgwabRowBinding;
@@ -25,10 +22,13 @@ public class AdapterModelGawab extends RecyclerView.Adapter<RecyclerViewHolders.
 
     private final Context context;
     private List<modelGawab> modelGawabList;
+    private  OnGawabClickListener clickListener;
 
-    public AdapterModelGawab(Context context , List<modelGawab> modelGawabList){
+    public AdapterModelGawab(Context context, List<modelGawab> modelGawabList, OnGawabClickListener clickListener){
         this.modelGawabList = modelGawabList;
         this.context = context;
+        this.clickListener = clickListener;
+
     }
 
     @NonNull
@@ -65,14 +65,26 @@ public class AdapterModelGawab extends RecyclerView.Adapter<RecyclerViewHolders.
             }
         });
 
-        /*holder.editButton.setOnClickListener(new View.OnClickListener() {
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onGawabEditClick(holder.getAdapterPosition(),modelGawabList.get(holder.getAdapterPosition()));
+            }
+        });
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onGawabDeleteClick(holder.getAdapterPosition(),modelGawabList.get(holder.getAdapterPosition()));
+            }
+        });
+
+        /*holder.editButton.setOnClickListener(new View.OnGawabClickListener() {
             @Override
             public void onClick(View v) {
                 modelGawab modelGawab = modelGawabList.get(position);
                 editItem(modelGawab);
             }
-        });*/
-
 
 
     }
@@ -90,14 +102,14 @@ public class AdapterModelGawab extends RecyclerView.Adapter<RecyclerViewHolders.
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        yesButton.setOnClickListener(new View.OnClickListener() {
+        yesButton.setOnClickListener(new View.OnGawabClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        noButton.setOnClickListener(new View.OnClickListener() {
+        noButton.setOnClickListener(new View.OnGawabClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -107,8 +119,12 @@ public class AdapterModelGawab extends RecyclerView.Adapter<RecyclerViewHolders.
     }
 */
 
+    }
+
     @Override
     public int getItemCount() {
         return modelGawabList.size();
     }
+
+
 }

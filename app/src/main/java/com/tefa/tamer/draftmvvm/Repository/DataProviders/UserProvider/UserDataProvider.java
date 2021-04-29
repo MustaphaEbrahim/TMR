@@ -1,39 +1,17 @@
-package com.tefa.tamer.draftmvvm.Repository.DataProviders;
+package com.tefa.tamer.draftmvvm.Repository.DataProviders.UserProvider;
 
-
-import android.net.Uri;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.BaseDataProvider;
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class UserDataProvider extends BaseDataProvider {
     public static UserDataProvider sharedInstance = new UserDataProvider();
@@ -44,7 +22,7 @@ public class UserDataProvider extends BaseDataProvider {
 
     //fireStore connection
 
-    private CollectionReference darMasrCollectionReference = db.collection("DaarMasr");
+   // private CollectionReference darMasrCollectionReference = db.collection("DaarMasr");
 
 
 

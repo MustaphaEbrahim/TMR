@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.Base.OnDataProviderResponseListener;
 import com.tefa.tamer.draftmvvm.Repository.DataProviders.daarMasr.DarMasrDataProvider;
-import com.tefa.tamer.draftmvvm.Repository.DataProviders.eskanEgtma3y.EskanEgtma3yDataProvider;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseViewModel;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
@@ -27,6 +26,7 @@ public class DarMsrViewModel extends BaseViewModel {
 
     private MutableLiveData<Boolean> isloadingMLD = new MutableLiveData<>();
     private MutableLiveData<Boolean> isSuccessMLD = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isEditSuccessMLD = new MutableLiveData<>();
     private MutableLiveData<modelGawab> isSuccesslMLD = new MutableLiveData<>();
     private MutableLiveData<String> isErrorMLD = new MutableLiveData<>();
     private MutableLiveData<User> userAlreadyExistMLD = new MutableLiveData<>();
@@ -82,11 +82,11 @@ public class DarMsrViewModel extends BaseViewModel {
 
     public void getUserDarMasr(){
         if (user != null){
+            darmasrList.clear();
             darMasrDataProvider.getDarMasrList(user, new OnDataProviderResponseListener<List<modelGawab>>() {
                 @Override
                 public void onSuccess(List<modelGawab> response) {
                     currentUser = user;
-                    darmasrList.clear();
                     darmasrList.addAll(response);
                     isDarMasrReady.setValue(true);
                 }
@@ -99,6 +99,7 @@ public class DarMsrViewModel extends BaseViewModel {
         }
     }
 
+    public MutableLiveData<Boolean> getIsEditSuccessMLD() { return isEditSuccessMLD; }
     public MutableLiveData<Boolean> getIsloadingMLD() { return isloadingMLD; }
     public MutableLiveData<Boolean> getIsSuccessMLD() { return isSuccessMLD; }
     public MutableLiveData<modelGawab> getIsSuccesslMLD() { return isSuccesslMLD; }
@@ -126,4 +127,34 @@ public class DarMsrViewModel extends BaseViewModel {
 
 
     }
+
+    public void updateGawab(String number, String tittle, String exportSide, String importSide){
+        darMasrDataProvider.updateGawab(number, tittle, exportSide, importSide, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                isEditSuccessMLD.setValue(true);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+    }
+
+    public void deleteGawab (String number){
+        darMasrDataProvider.deleteGawab(number, new OnDataProviderResponseListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean response) {
+                isSuccessMLD.setValue(true);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                isErrorMLD.setValue(errorMsg);
+            }
+        });
+    }
+
+
 }

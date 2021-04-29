@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.tefa.tamer.databinding.ModelgwabRowBinding;
 
 
@@ -30,7 +30,7 @@ public class RecyclerViewHolders {
         }
     }*/
 
-    public static class ModelGwabViewHodel extends RecyclerView.ViewHolder {
+    public static class ModelGwabViewHodel extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView
                 answerTitle,
                 answerDate ,
@@ -58,6 +58,11 @@ public class RecyclerViewHolders {
             pdf = itmBinding.pdf;
             editButton = itmBinding.editButton;
             deleteButton = itmBinding.deleteButton;
+
+        }
+
+        @Override
+        public void onClick(View v) {
 
         }
     }

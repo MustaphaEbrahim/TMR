@@ -42,6 +42,7 @@
     <string name="no_tcext">no</string>
     <string name="yes_text">yes</string>
     <string name="Click_here_to_download_pdf">Click Here To Download PDF!</string>
+    <string name="Editanswer">EditAnswer</string>
 
 
 </resources>

@@ -27,11 +27,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.FragmentDarMasrBinding;
 import com.tefa.tamer.draftmvvm.Adapters.AdapterModelGawab;
+import com.tefa.tamer.draftmvvm.Adapters.OnGawabClickListener;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseFragment;
-import com.tefa.tamer.draftmvvm.UI.Choose.View.TestActivity;
 import com.tefa.tamer.draftmvvm.UI.Daarmassr.ViewModel.DarMsrViewModel;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.View.modelGawab;
-import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.ViewModel.EskanEgtmayVIewModel;
 import com.tefa.tamer.draftmvvm.UI.Main.View.User;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,7 +39,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class DarMasrFragment extends BaseFragment {
+public class DarMasrFragment extends BaseFragment implements OnGawabClickListener {
 
     private FragmentDarMasrBinding binding;
     private DarMsrViewModel viewModel;
@@ -51,9 +50,9 @@ public class DarMasrFragment extends BaseFragment {
     private EditText dateGwab;
     private EditText numberGwab;
     private EditText exportGwab;
-    private EditText importGwab;
-    private EditText pdfGwab;
-    private Button saveButton;
+    private EditText importGwab,pdfGwab;
+    private EditText editTittle, editNumber,editexportSide, editImportSide,deleteNumber;
+    private Button saveButton,editSaveButton,deleteSaveButton;
 
 
     @Nullable
@@ -137,22 +136,27 @@ public class DarMasrFragment extends BaseFragment {
 
     private void initRecyclerView() {
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(context));
-        adapterModelGawab = new AdapterModelGawab(context, viewModel.getDarMasrList());
+        adapterModelGawab = new AdapterModelGawab(context, viewModel.getDarMasrList(), this);
         binding.recyclerview.setAdapter(adapterModelGawab);
     }
 
     @Override
     public void initViewModel() {
-        // hya el fekra yasta enak kont 7atet parameters fl constructor bta3ha bta3 eh ?
+
         viewModel = new ViewModelProvider(this).get(DarMsrViewModel.class);
         setViewModel(viewModel);
-        /*viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(DarMsrViewModel.class);
-        setViewModel(viewModel);*/
+
     }
 
     @Override
     public void initObservers() {
 
+        viewModel.getIsEditSuccessMLD().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                adapterModelGawab.notifyDataSetChanged();
+            }
+        });
         viewModel.getIsSuccesslMLD().observe(this, new Observer<modelGawab>() {
             @Override
             public void onChanged(modelGawab modelGawab) {
@@ -195,9 +199,6 @@ public class DarMasrFragment extends BaseFragment {
 
     private void saveDarMasr() {
 
-        /*Intent intent = new Intent(context.getApplicationContext() , DarMasrFragment.class);
-        startActivity(intent);*/
-
         binding.progressBar.setVisibility(View.GONE);
         dialog.dismiss();
         viewModel.getDarMasrList().clear();
@@ -228,6 +229,38 @@ public class DarMasrFragment extends BaseFragment {
                 Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void createEditeAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        View view = getLayoutInflater().inflate(R.layout.popupedit, null);
+
+        editNumber = view.findViewById(R.id.answerEditNumber);
+        editTittle = view.findViewById(R.id.answerEditTitle);
+        editImportSide = view.findViewById(R.id.importEditSide);
+        editexportSide = view.findViewById(R.id.exportEditSide);
+        editSaveButton = view.findViewById(R.id.saveEditButton);
+        editSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPDFfileFireBase();
+            }
+        });
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    private void editPDFfileFireBase() {
+
+        String number = editNumber.getText().toString().trim();
+        String tittle = editTittle.getText().toString().trim();
+        String exportSide = editexportSide.getText().toString().trim();
+        String importSide = editImportSide.getText().toString().trim();
+
+        viewModel.updateGawab(number,tittle,exportSide,importSide);
+        saveDarMasr();
     }
 
     private void createAlertDialog() {
@@ -270,20 +303,6 @@ public class DarMasrFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 130 && resultCode == RESULT_OK && data != null && data.getData() != null){
             saveButton.setEnabled(true);
-
-            /*if (saveButton.callOnClick()){
-                viewModel.getIsloadingMLD().observe(this, new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(Boolean aBoolean) {
-                        if (aBoolean){
-                            binding.progressBar.setVisibility(View.VISIBLE);
-                        }else {
-                            binding.progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-            }*/
-
             pdfGwab.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/") + 1));
 
             saveButton.setOnClickListener(new View.OnClickListener() {
@@ -318,5 +337,40 @@ public class DarMasrFragment extends BaseFragment {
         super.onDestroyView();
         binding = null;
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onGawabEditClick(int adapterPosition, modelGawab gawab) {
+        // TODO open dialog
+        //TODO save new object to firebase
+        createEditeAlertDialog();
+    }
+
+    @Override
+    public void onGawabDeleteClick(int adapterPosition, modelGawab gawab) {
+        createDeleteAlertDialog();
+    }
+
+    private void createDeleteAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = getLayoutInflater().inflate(R.layout.popupdelete, null);
+
+        deleteNumber = view.findViewById(R.id.enter_number);
+        deleteSaveButton = view.findViewById(R.id.deleteField);
+        deleteSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteDocumentByNumberGawab();
+            }
+        });
+        builder.setView(view);
+        dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteDocumentByNumberGawab() {
+        String nu = deleteNumber.getText().toString().trim();
+
+        viewModel.deleteGawab(nu);
     }
 }

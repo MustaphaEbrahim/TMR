@@ -22,12 +22,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.tefa.tamer.R;
 import com.tefa.tamer.databinding.FragmentEgtmayBinding;
 import com.tefa.tamer.draftmvvm.Adapters.AdapterModelGawab;
+import com.tefa.tamer.draftmvvm.Adapters.OnGawabClickListener;
 import com.tefa.tamer.draftmvvm.UI.Base.BaseFragment;
 import com.tefa.tamer.draftmvvm.UI.Choose.View.TestActivity;
 import com.tefa.tamer.draftmvvm.UI.EskanEgtamy.ViewModel.EskanEgtmayVIewModel;
@@ -40,7 +40,8 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 
 
-public class EgtmayFragment extends BaseFragment {
+public class EgtmayFragment extends BaseFragment implements OnGawabClickListener {
+
 
 
     private FragmentEgtmayBinding binding;
@@ -55,6 +56,10 @@ public class EgtmayFragment extends BaseFragment {
     private EditText importGwab;
     private EditText pdfGwab;
     private Button saveButton;
+
+    private TextView editNumber , editDate, editPdf;
+    private EditText editTitle , editExport , editImport,deleteNumber ;
+    private Button saveEditButton, deleteButton;
 
     @Nullable
     @Override
@@ -155,7 +160,7 @@ public class EgtmayFragment extends BaseFragment {
 
         saveButton = view.findViewById(R.id.saveButton);
         saveButton.setEnabled(false);
-        /*saveButton.setOnClickListener(new View.OnClickListener() {
+        /*saveButton.setOnClickListener(new View.OnGawabClickListener() {
             @Override
             public void onClick(View v) {
                 if (!titleGwab.getText().toString().isEmpty() && !dateGwab.getText().toString().isEmpty()
@@ -187,7 +192,7 @@ public class EgtmayFragment extends BaseFragment {
     private void selectPdf() {
         Intent intent = new Intent();
         intent.setType("application/pdf");
-        intent.setAction(intent.ACTION_GET_CONTENT);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "PDF FILE SELECT"), 12);
     }
 
@@ -199,13 +204,40 @@ public class EgtmayFragment extends BaseFragment {
 
             pdfGwab.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/") + 1));
 
+
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     uploadPDFFileFireBaser(data.getData());
                 }
             });
-        }
+
+
+        }/*else if (requestCode == 15 && resultCode == RESULT_OK && data != null && data.getData() != null)
+        {
+            saveEditButton.setEnabled(true);
+            editPdf.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/") + 1));
+            saveEditButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editPDFfileFireBase();
+                }
+            });
+
+        }*/
+    }
+
+    private void editPDFfileFireBase(){
+
+        String numberSide = editNumber.getText().toString().trim();
+        String exportSide = editExport.getText().toString().trim();
+        String importSide = editImport.getText().toString().trim();
+        String tittle = editTitle.getText().toString().trim();
+        vIewModel.updateGawab(numberSide, exportSide, importSide,tittle);
+
+
+        /*vIewModel.updateModelGwab(editModelGawab);*/
+        saveEgtmay();
     }
 
     private void uploadPDFFileFireBaser(Uri uriPdf) {
@@ -220,6 +252,7 @@ public class EgtmayFragment extends BaseFragment {
         if (!TextUtils.isEmpty(tGwab) && !TextUtils.isEmpty(dGawb)
                 && !TextUtils.isEmpty(nGwab) && uriPdf != null ){
             vIewModel.saveEskanEgtmay(tGwab,dGawb,nGwab,uriPdf,eGwab,iGwab);
+
         }else {
             Toast.makeText(getActivity(), "Empty Fields Not Allowed", Toast.LENGTH_LONG).show();
         }
@@ -228,7 +261,7 @@ public class EgtmayFragment extends BaseFragment {
 
     private void initRecyclerView() {
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(context));
-        adapterModelGwab = new AdapterModelGawab(context, vIewModel.getModelGawabList());
+        adapterModelGwab = new AdapterModelGawab(context, vIewModel.getModelGawabList(), this);
         binding.recyclerview.setAdapter(adapterModelGwab);
     }
 
@@ -240,6 +273,16 @@ public class EgtmayFragment extends BaseFragment {
 
     @Override
     public void initObservers() {
+
+        vIewModel.getIsEditSuccessMLD().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+
+                adapterModelGwab.notifyDataSetChanged();
+                saveEgtmay();
+
+            }
+        });
 
         vIewModel.getIsSuccesslMLD().observe(this, new Observer<modelGawab>() {
             @Override
@@ -328,4 +371,76 @@ public class EgtmayFragment extends BaseFragment {
         binding = null;
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onGawabEditClick(int adapterPosition, modelGawab gawab) {
+        createEditAlertDialog();
+    }
+
+
+    @Override
+    public void onGawabDeleteClick(int adapterPosition, modelGawab gawab) {
+
+        CreateDeleteAlertDialog();
+        //vIewModel.delete();
+        adapterModelGwab.notifyDataSetChanged();
+
+    }
+
+    private void CreateDeleteAlertDialog() {
+        AlertDialog.Builder editBuilder = new AlertDialog.Builder(getContext());
+
+        View v = getLayoutInflater().inflate(R.layout.popupdelete, null);
+
+        deleteNumber = v.findViewById(R.id.enter_number);
+        deleteButton = v.findViewById(R.id.deleteField);
+
+
+       
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePDFfileFireBase();
+            }
+        });
+        editBuilder.setView(v);
+        AlertDialog dialog = editBuilder.create();
+        dialog.show();
+    }
+
+    private void deletePDFfileFireBase() {
+
+        vIewModel.delete(deleteNumber.getText().toString().trim());
+        saveEgtmay();
+    }
+
+
+    private void createEditAlertDialog() {
+        AlertDialog.Builder editBuilder = new AlertDialog.Builder(getContext());
+
+        View v = getLayoutInflater().inflate(R.layout.popupedit, null);
+
+        editNumber = v.findViewById(R.id.answerEditNumber);
+        editDate = v.findViewById(R.id.answerEditDate);
+        editPdf = v.findViewById(R.id.uriEditPdf);
+        editTitle = v.findViewById(R.id.answerEditTitle);
+        editImport = v.findViewById(R.id.importEditSide);
+        editExport = v.findViewById(R.id.exportEditSide);
+
+
+        saveEditButton = v.findViewById(R.id.saveEditButton);
+        saveEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPDFfileFireBase();
+            }
+        });
+
+        editBuilder.setView(v);
+        AlertDialog dialog = editBuilder.create();
+        dialog.show();
+
+    }
+
+
 }

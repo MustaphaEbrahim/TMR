@@ -11,7 +11,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -108,9 +107,9 @@ public class DarMasrDataProvider extends BaseDataProvider {
                         darmasr.setUserName(currentName);
                         darmasr.setUserId(currentUserId);
 
-                        darMasrCollectionReference.add(darmasr).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        darMasrCollectionReference.document(answerNumber).set(darmasr).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
+                            public void onSuccess(Void aVoid) {
                                 booleanOnDataProviderResponseListener.onSuccess(darmasr);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -140,6 +139,53 @@ public class DarMasrDataProvider extends BaseDataProvider {
                 }else {
                     // TODO handle if no result
                 }
+            }
+        });
+    }
+
+    public void updateGawab(String number, String tittle,String exportSide, String importSide, OnDataProviderResponseListener<Boolean> booleanOnDataProviderResponseListener) {
+        darMasrCollectionReference.whereEqualTo("number", number).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                darMasrCollectionReference.document(number).update(
+                        "importSide",importSide,
+                        "exportSide", exportSide,
+                        "title" ,tittle ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        booleanOnDataProviderResponseListener.onSuccess(true);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        booleanOnDataProviderResponseListener.onError(e.getLocalizedMessage());
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                booleanOnDataProviderResponseListener.onError(e.getLocalizedMessage());
+            }
+        });
+
+    }
+
+    public void  deleteGawab(String number, OnDataProviderResponseListener<Boolean> booleanOnDataProviderResponseListener){
+        darMasrCollectionReference.whereEqualTo("number", number).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                darMasrCollectionReference.document(number).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        booleanOnDataProviderResponseListener.onSuccess(true);
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                booleanOnDataProviderResponseListener.onError(e.getLocalizedMessage());
             }
         });
     }
