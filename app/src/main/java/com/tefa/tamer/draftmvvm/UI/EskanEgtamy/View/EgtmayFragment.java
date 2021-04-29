@@ -57,7 +57,7 @@ public class EgtmayFragment extends BaseFragment implements OnGawabClickListener
     private EditText pdfGwab;
     private Button saveButton;
 
-    private TextView editNumber , editDate, editPdf;
+    private TextView editNumber , editDate, editPdf ;
     private EditText editTitle , editExport , editImport,deleteNumber ;
     private Button saveEditButton, deleteButton;
 
@@ -227,13 +227,14 @@ public class EgtmayFragment extends BaseFragment implements OnGawabClickListener
         }*/
     }
 
-    private void editPDFfileFireBase(){
+    private void editPDFfileFireBase(modelGawab gawab){
 
+        String numberGawab = gawab.getNumber();
         String numberSide = editNumber.getText().toString().trim();
         String exportSide = editExport.getText().toString().trim();
         String importSide = editImport.getText().toString().trim();
         String tittle = editTitle.getText().toString().trim();
-        vIewModel.updateGawab(numberSide, exportSide, importSide,tittle);
+        vIewModel.updateGawab(numberGawab, exportSide, importSide,tittle);
 
 
         /*vIewModel.updateModelGwab(editModelGawab);*/
@@ -374,54 +375,30 @@ public class EgtmayFragment extends BaseFragment implements OnGawabClickListener
 
     @Override
     public void onGawabEditClick(int adapterPosition, modelGawab gawab) {
-        createEditAlertDialog();
+        createEditAlertDialog(gawab);
+
     }
+
+
 
 
     @Override
     public void onGawabDeleteClick(int adapterPosition, modelGawab gawab) {
 
-        CreateDeleteAlertDialog();
-        //vIewModel.delete();
+        vIewModel.delete(gawab.getNumber());
         adapterModelGwab.notifyDataSetChanged();
 
     }
 
-    private void CreateDeleteAlertDialog() {
-        AlertDialog.Builder editBuilder = new AlertDialog.Builder(getContext());
-
-        View v = getLayoutInflater().inflate(R.layout.popupdelete, null);
-
-        deleteNumber = v.findViewById(R.id.enter_number);
-        deleteButton = v.findViewById(R.id.deleteField);
-
-
-       
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deletePDFfileFireBase();
-            }
-        });
-        editBuilder.setView(v);
-        AlertDialog dialog = editBuilder.create();
-        dialog.show();
-    }
-
-    private void deletePDFfileFireBase() {
-
-        vIewModel.delete(deleteNumber.getText().toString().trim());
-        saveEgtmay();
-    }
-
-
-    private void createEditAlertDialog() {
+    private void createEditAlertDialog(modelGawab gawab) {
         AlertDialog.Builder editBuilder = new AlertDialog.Builder(getContext());
 
         View v = getLayoutInflater().inflate(R.layout.popupedit, null);
 
         editNumber = v.findViewById(R.id.answerEditNumber);
+        editNumber.setText("GawabNumber :-" + gawab.getNumber());
         editDate = v.findViewById(R.id.answerEditDate);
+        editDate.setText(gawab.getDate());
         editPdf = v.findViewById(R.id.uriEditPdf);
         editTitle = v.findViewById(R.id.answerEditTitle);
         editImport = v.findViewById(R.id.importEditSide);
@@ -432,15 +409,15 @@ public class EgtmayFragment extends BaseFragment implements OnGawabClickListener
         saveEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editPDFfileFireBase();
+                editPDFfileFireBase(gawab);
             }
         });
 
         editBuilder.setView(v);
         AlertDialog dialog = editBuilder.create();
         dialog.show();
-
     }
+
 
 
 }
