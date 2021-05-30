@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <RelativeLayout
-
+            android:background="@drawable/care"
             android:padding="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -29,27 +29,35 @@
                 android:layout_below="@id/title"
                 android:layout_width="match_parent"
                 android:hint="@string/answer_title"
-                android:layout_height="wrap_content" />
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/answer_title" />
 
             <EditText
                 android:id="@+id/answerDate"
                 android:layout_below="@id/answerTitle"
                 android:layout_width="match_parent"
+                android:inputType="date"
                 android:hint="@string/answer_date"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/answer_date" />
 
             <EditText
                 android:id="@+id/answerNumber"
                 android:layout_below="@id/answerDate"
                 android:layout_width="match_parent"
                 android:hint="@string/Answer_Number"
-                android:layout_height="wrap_content" />
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/Answer_Number" />
 
             <EditText
                 android:id="@+id/importSide"
                 android:layout_below="@id/answerNumber"
                 android:layout_width="match_parent"
                 android:hint="@string/import_side"
+                android:inputType="text"
+                android:autofillHints="@string/import_side"
                 android:layout_height="wrap_content" />
 
             <EditText
@@ -57,7 +65,9 @@
                 android:layout_below="@id/importSide"
                 android:layout_width="match_parent"
                 android:hint="@string/export_side"
-                android:layout_height="wrap_content" />
+                android:inputType="text"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/export_side" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -66,7 +76,9 @@
                 android:hint="@string/choose_your_selcet_pdf"
                 android:layout_below="@id/exportSide"
                 android:textColorHint="@color/colorAccent"
-                />
+                android:autofillHints="@string/choose_your_selcet_pdf"
+                android:inputType="textUri"
+                android:background="@color/colorAccentdim"/>
 
 
 
